@@ -1,6 +1,9 @@
 name: Cypress e2e Tests
 on:
   workflow_dispatch:
+    inputs:
+      spec:
+        default: cypress/e2e/*
     
   push:
     branches: ['main']
@@ -37,7 +40,7 @@ jobs:
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
           record: true
           parallel: true # Runs test in parallel using settings above
-          run: npx cypress run --spec "${{ github.event.inputs.spec }}"
+          spec: ${{ github.event.inputs.spec }}
         env:
           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
@@ -75,7 +78,7 @@ jobs:
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
           record: true
           parallel: true # Runs test in parallel using settings above
-          run: npx cypress run --spec "${{ github.event.inputs.spec }}"
+          spec: ${{ github.event.inputs.spec }}
         env:
           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
